@@ -39,7 +39,8 @@
 **NOTE**: To simplify the work, use the AMP package, for example, XAMPP.
 
 1. Install OpenSSL (>= 1.0.0). Latest version you can download [here](https://www.openssl.org/source/).
-**UPD (07.01.2020).** For Windows download from [here](https://github.com/GhostNaix/BF214stats-emu-deps/raw/main/openssl-1.0.2u-win32.zip). I can 100% guarantee that it works with **Win32 OpenSSL v1.0.2u**. More late versions doesn't work (TODO: recheck again).
+**UPD (07.01.2020).** For Windows download from [here](https://github.com/GhostNaix/BF214stats-emu-deps/raw/main/openssl-1.0.2u-win32.zip). I can 100% guarantee that it works with **Win32 OpenSSL v1.0.2u**
+
 **UPD (24.11.2020) (DD/MM/YYYY).** Fesl Server is included within the server files and can be launched using the "Masterserver+Standalone Launcher.exe"
 2. Install MySQL server (latest version [here](http://dev.mysql.com/downloads/mysql/)) .
 3. Import database BF2142 Database.sql to MYSQL server.
