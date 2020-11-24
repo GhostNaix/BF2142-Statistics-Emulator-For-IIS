@@ -167,6 +167,18 @@ function ErrorLog($msg, $lvl) {
 
     if ($lvl <= $cfg->get('debug_lvl')) {
         $err_msg = date('Y-m-d H:i:s') . " -- " . $lvl_txt . $msg . "\n";
+        if (is_dir($cfg->get('stats_logs')) == false)
+        {
+            if (is_file($cfg->get('Debug_Log_File_Path_Confilct')) == false)
+            {
+                mkdir($cfg->get('stats_logs'), 0777, true);
+            }
+            else
+            {
+                unlink($cfg->get('Debug_Log_File_Path_Confilct'));
+                mkdir($cfg->get('stats_logs'), 0777, true);
+            }
+        }
         $file = @fopen($cfg->get('debug_log'), 'a');
         @fwrite($file, $err_msg);
         @fclose($file);

@@ -1,16 +1,5 @@
 <?php
 ob_start();
-
-
-
-
-
-
-
-
-
-
-
 $LOG = 1;
 function errorcode($errorcode=104) {
     $Out = "E\t" . $errorcode;
@@ -82,6 +71,18 @@ if (mysql_num_rows($result0)) {
 $rawdata = file_get_contents('php://input');
 //$rawdata = file_get_contents('data.txt');
 if ($LOG) {
+    if (is_dir($cfg->get('stats_logs')) == false)
+    {
+        if (is_file($cfg->get('Debug_Log_File_Path_Confilct')) == false)
+        {
+            mkdir($cfg->get('stats_logs'), 0777, true);
+        }
+        else
+        {
+            unlink($cfg->get('Debug_Log_File_Path_Confilct'));
+            mkdir($cfg->get('stats_logs'), 0777, true);
+        }
+    }    
 $fp = fopen("logs/rawdata".time().".txt","a+");
 fwrite($fp,$rawdata);
 fflush($fp);
@@ -150,32 +151,32 @@ ErrorLog($errmsg, 3);
 if (file_exists(chkPath($cfg->get('stats_logs')) . "")) {
     
 } else {
-    mkdir(chkPath($cfg->get('stats_logs')) . "", 0777);
+    mkdir(chkPath($cfg->get('stats_logs')) . "", 0777, true);
 }
 if (file_exists(chkPath($cfg->get('stats_logs')) . "bad")) {
     
 } else {
-    mkdir(chkPath($cfg->get('stats_logs')) . "bad", 0777);
+    mkdir(chkPath($cfg->get('stats_logs')) . "bad", 0777, true);
 }
 if (file_exists(chkPath($cfg->get('stats_logs')) . "bad/BADTIME")) {
     
 } else {
-    mkdir(chkPath($cfg->get('stats_logs')) . "bad/BADTIME", 0777);
+    mkdir(chkPath($cfg->get('stats_logs')) . "bad/BADTIME", 0777, true);
 }
 if (file_exists(chkPath($cfg->get('stats_logs')) . "bad/EOF")) {
     
 } else {
-    mkdir(chkPath($cfg->get('stats_logs')) . "bad/EOF", 0777);
+    mkdir(chkPath($cfg->get('stats_logs')) . "bad/EOF", 0777, true);
 }
 if (file_exists(chkPath($cfg->get('stats_logs')) . "bad/NOTAUTH")) {
     
 } else {
-    mkdir(chkPath($cfg->get('stats_logs')) . "bad/NOTAUTH", 0777);
+    mkdir(chkPath($cfg->get('stats_logs')) . "bad/NOTAUTH", 0777, true);
 }
 if (file_exists(chkPath($cfg->get('stats_logs')) . "bad/GAMEMOD")) {
     
 } else {
-    mkdir(chkPath($cfg->get('stats_logs')) . "bad/GAMEMOD", 0777);
+    mkdir(chkPath($cfg->get('stats_logs')) . "bad/GAMEMOD", 0777, true);
 }
 // Check for Complete Snapshot data
 //print_r($data);
@@ -209,7 +210,7 @@ if ($badtime) {
     if (file_exists(chkPath($cfg->get('stats_logs')) . "bad/BADTIME/" . $ip_s)) {
         
     } else {
-        mkdir(chkPath($cfg->get('stats_logs')) . "bad/BADTIME/" . $ip_s, 0777);
+        mkdir(chkPath($cfg->get('stats_logs')) . "bad/BADTIME/" . $ip_s, 0777, true);
     }
     $fn_dest = chkPath($cfg->get('stats_logs')) . "bad/BADTIME/" . $ip_s . "/" . $stats_filename;
     if (file_exists($fn_src)) {
@@ -234,7 +235,7 @@ if ($data['EOF'] != 1) {
     if (file_exists(chkPath($cfg->get('stats_logs')) . "bad/EOF/" . $ip_s)) {
         
     } else {
-        mkdir(chkPath($cfg->get('stats_logs')) . "bad/EOF/" . $ip_s, 0777);
+        mkdir(chkPath($cfg->get('stats_logs')) . "bad/EOF/" . $ip_s, 0777, true);
     }
     $fn_dest = chkPath($cfg->get('stats_logs')) . "bad/EOF/" . $ip_s . "/" . $stats_filename;
     if (file_exists($fn_src)) {
@@ -259,7 +260,7 @@ if (0) {
     if (file_exists(chkPath($cfg->get('stats_logs')) . "bad/GAMEMOD/" . $ip_s)) {
         
     } else {
-        mkdir(chkPath($cfg->get('stats_logs')) . "bad/GAMEMOD/" . $ip_s, 0777);
+        mkdir(chkPath($cfg->get('stats_logs')) . "bad/GAMEMOD/" . $ip_s, 0777, true);
     }
     $fn_dest = chkPath($cfg->get('stats_logs')) . "bad/GAMEMOD/" . $ip_s . "/" . $stats_filename;
     if (file_exists($fn_src)) {
@@ -1389,9 +1390,8 @@ fclose($fp);
      * ****************************** */
     if ($cfg->get('stats_move_logs')) {
         if (file_exists(chkPath($cfg->get('stats_logs_store')) . $ip_s)) {
-            
         } else {
-            mkdir(chkPath($cfg->get('stats_logs_store')) . $ip_s, 0777);
+            mkdir(chkPath($cfg->get('stats_logs_store')) . $ip_s, 0777, true);
         }
 
         $fn_src = chkPath($cfg->get('stats_logs')) . $stats_filename;
