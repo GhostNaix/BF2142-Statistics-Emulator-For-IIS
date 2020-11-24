@@ -12,7 +12,7 @@ $db_name = 'bf2142';
 $db_user = 'bf2142';
 $db_pass = 'pw2142';
 
-
+// Don't change anthing below this if you don't know what you are doing
 #$admin_user = '';
 #$admin_pass = '';
 #$admin_hosts = array('62.1.195.3','127.0.0.1','localhost');
