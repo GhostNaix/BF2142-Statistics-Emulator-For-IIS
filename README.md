@@ -56,7 +56,9 @@ However if you wish to use IIS then following along it's going to be long.
 ### WebServer
 
 **NOTE**: Stats requires PHP >= 5.3.8
+
 **UPD (07.01.2020).** Not working on PHP >= 7.0. I can 100% guarantee that it works on PHP 5.4.22. I advise you to use XAMPP 1.8.2
+
 **UPD (24.11.2020) (DD/MM/YYYY)** We are going to be using PHP 5.6.40 NTS (Non-Thread safe)
 
 1. Setup PHP 5.6.40 for IIS (Google it theres plenty of guides for it such as this [one](https://hostadvice.com/how-to/how-to-install-php-with-fastcgi-extension-on-iis-7-iis-8-server/))
