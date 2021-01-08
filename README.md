@@ -1,4 +1,4 @@
-# Battlefield 2142 Statistics Emulator Server
+# Battlefield 2142 Statistics Emulator Server (Fixed For IIS)
 
 ## Client
 1. Install Battlefield 2142
