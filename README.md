@@ -27,8 +27,11 @@
 (**NOTE**: if you are left with the unallocated space after correcting IP, set dots and change the bit-values ​​of the dots to 00)
 
 **UPD (07.01.2020).** (if you have installed 1.51) Edit bf2142.exe with hex-editor. Change in address 0045c980 blocks 4-5-6-7 values (0301a8c0) to our own by next rules:
+
 1) Revert your IP (e.g. 33.44.55.66 revert to 66.55.44.33)
+
 2) Convert value to hex (you can use [this tool](https://www.browserling.com/tools/ip-to-hex)). e.g. 66.55.44.33 -> 42372c21
+
 3) Replace 0301a8c0 with 42372c21
 
 
@@ -43,8 +46,11 @@
 
 **UPD (24.11.2020) (DD/MM/YYYY).** Fesl Server is included within the server files and can be launched using the "Masterserver+Standalone Launcher.exe"
 2. Install MySQL server (latest version [here](http://dev.mysql.com/downloads/mysql/)) .
+
 3. Import database BF2142 Database.sql to MYSQL server.
+
 4. Create the BF2142 account via MySQL Worbench or any other DBMS
+
 5. Start _launch.bat as a test to see if it sucessfully connects
 
 **NOTE**: You can change License Agreement in license.txt, but however, due to the fact that BF2142 does not know a line break, the text will be like a one-liner.
@@ -62,13 +68,21 @@ However if you wish to use IIS then following along it's going to be long.
 **UPD (24.11.2020) (DD/MM/YYYY)** We are going to be using PHP 5.6.40 NTS (Non-Thread safe)
 
 1. Setup PHP 5.6.40 for IIS (Google it theres plenty of guides for it such as this [one](https://hostadvice.com/how-to/how-to-install-php-with-fastcgi-extension-on-iis-7-iis-8-server/))
+
 2. Unzip folder "web" to your localhost folder (**C:\inetpub\wwwroot** for IIS) (**WARNING**: Stats system won't work at another location!)
+
 3. Right click on the folder "wwwroot" click on properties and then the "Security" tab 
+
 4. Click on "Edit..." A new windowe should pop up called "Permissions for wwwroot"
+
 5. Click on "Add..." Another window named "Select Users or Groups" should pop up
+
 6. In "Enter the object names to select" part enter "IUSR" and select "check names" when it's done recognising the name click "ok"
+
 7. Repeat step 5 and 6 however this time instead of "IUSR" add "IIS_IUSR" and select "check names" when it's done recognising the name click "ok"
+
 8. In the "Permissions for wwwroot" window grant or tick "Allow" on the permission "Full control"
+
 9. Open the the file "My.ini" and add the following under the appropriate sections
 ```
 [client]
@@ -84,7 +98,9 @@ character-set-server = utf8
 ```
 
 10. Open ./include/_ccconfig.php and change $db_host, $db_name, $db_user, $db_pass to yours, which you installed in Fesl Login (step 4)
+
 11. Open your database in MySQL (phpmyadmin/ or another utility), open table "servers" and add two new entries (local and external IP) and key "authorised" 1.
+
 12. Open your PHP config file (php.ini) and change (it is recommmended that you use the production configuration) 
 
 ```
@@ -95,6 +111,9 @@ display_errors = Off
 ### GameServer
 
 1. Download BF2142 serverfiles
+
 2. Extract "BF2142 Patch Server Files" folder to the main folder with server. Agree with overwriting.
+
 3. Patch BF2142_w32ded.exe with lpatch.exe ("exe_patch" folder). **NOTE**: 1.25 patch with fesl_1.25.lpatch, 1.51 - fesl.lpatch
+
 4. Launch "Masterserver+Standalone Launcher.exe" .
