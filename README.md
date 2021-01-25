@@ -70,6 +70,8 @@ However if you wish to use IIS then following along it's going to be long.
 
 1. Setup PHP 5.6.40 for IIS (Google it theres plenty of guides for it such as this [one](https://hostadvice.com/how-to/how-to-install-php-with-fastcgi-extension-on-iis-7-iis-8-server/))
 
+1.5 For some reason the emulator and the Battlefield 2142 uses .aspx files as php files so you will need to reconfigure IIS to process .aspx files with php. This can be done through renaming all the handlers with "*.aspx" to "*.aspxs" (or whatever you fancy however do not delete them as they might be needed for other things) and adding a new handler for php however instead of "*.php" in the request path, set it to "*.aspx"
+
 2. Unzip folder "web" to your localhost folder (**C:\inetpub\wwwroot** for IIS) (**WARNING**: Stats system won't work at another location!)
 
 3. Right click on the folder "wwwroot" click on properties and then the "Security" tab 
