@@ -1,5 +1,21 @@
 <?php
 ob_start();
+
+
+
+
+
+
+
+
+
+// edits : Steve
+// line 983
+// line 1053
+// line 1092
+// add two entries to each vehicle value in stats_v so they all have 0-15
+// example : vdstry-14, vdstry-15
+
 $LOG = 1;
 function errorcode($errorcode=104) {
     $Out = "E\t" . $errorcode;
@@ -71,18 +87,6 @@ if (mysql_num_rows($result0)) {
 $rawdata = file_get_contents('php://input');
 //$rawdata = file_get_contents('data.txt');
 if ($LOG) {
-    if (is_dir($cfg->get('stats_logs')) == false)
-    {
-        if (is_file($cfg->get('Debug_Log_File_Path_Confilct')) == false)
-        {
-            mkdir($cfg->get('stats_logs'), 0777, true);
-        }
-        else
-        {
-            unlink($cfg->get('Debug_Log_File_Path_Confilct'));
-            mkdir($cfg->get('stats_logs'), 0777, true);
-        }
-    }    
 $fp = fopen("logs/rawdata".time().".txt","a+");
 fwrite($fp,$rawdata);
 fflush($fp);
@@ -151,32 +155,32 @@ ErrorLog($errmsg, 3);
 if (file_exists(chkPath($cfg->get('stats_logs')) . "")) {
     
 } else {
-    mkdir(chkPath($cfg->get('stats_logs')) . "", 0777, true);
+    mkdir(chkPath($cfg->get('stats_logs')) . "", 0777);
 }
 if (file_exists(chkPath($cfg->get('stats_logs')) . "bad")) {
     
 } else {
-    mkdir(chkPath($cfg->get('stats_logs')) . "bad", 0777, true);
+    mkdir(chkPath($cfg->get('stats_logs')) . "bad", 0777);
 }
 if (file_exists(chkPath($cfg->get('stats_logs')) . "bad/BADTIME")) {
     
 } else {
-    mkdir(chkPath($cfg->get('stats_logs')) . "bad/BADTIME", 0777, true);
+    mkdir(chkPath($cfg->get('stats_logs')) . "bad/BADTIME", 0777);
 }
 if (file_exists(chkPath($cfg->get('stats_logs')) . "bad/EOF")) {
     
 } else {
-    mkdir(chkPath($cfg->get('stats_logs')) . "bad/EOF", 0777, true);
+    mkdir(chkPath($cfg->get('stats_logs')) . "bad/EOF", 0777);
 }
 if (file_exists(chkPath($cfg->get('stats_logs')) . "bad/NOTAUTH")) {
     
 } else {
-    mkdir(chkPath($cfg->get('stats_logs')) . "bad/NOTAUTH", 0777, true);
+    mkdir(chkPath($cfg->get('stats_logs')) . "bad/NOTAUTH", 0777);
 }
 if (file_exists(chkPath($cfg->get('stats_logs')) . "bad/GAMEMOD")) {
     
 } else {
-    mkdir(chkPath($cfg->get('stats_logs')) . "bad/GAMEMOD", 0777, true);
+    mkdir(chkPath($cfg->get('stats_logs')) . "bad/GAMEMOD", 0777);
 }
 // Check for Complete Snapshot data
 //print_r($data);
@@ -210,7 +214,7 @@ if ($badtime) {
     if (file_exists(chkPath($cfg->get('stats_logs')) . "bad/BADTIME/" . $ip_s)) {
         
     } else {
-        mkdir(chkPath($cfg->get('stats_logs')) . "bad/BADTIME/" . $ip_s, 0777, true);
+        mkdir(chkPath($cfg->get('stats_logs')) . "bad/BADTIME/" . $ip_s, 0777);
     }
     $fn_dest = chkPath($cfg->get('stats_logs')) . "bad/BADTIME/" . $ip_s . "/" . $stats_filename;
     if (file_exists($fn_src)) {
@@ -235,7 +239,7 @@ if ($data['EOF'] != 1) {
     if (file_exists(chkPath($cfg->get('stats_logs')) . "bad/EOF/" . $ip_s)) {
         
     } else {
-        mkdir(chkPath($cfg->get('stats_logs')) . "bad/EOF/" . $ip_s, 0777, true);
+        mkdir(chkPath($cfg->get('stats_logs')) . "bad/EOF/" . $ip_s, 0777);
     }
     $fn_dest = chkPath($cfg->get('stats_logs')) . "bad/EOF/" . $ip_s . "/" . $stats_filename;
     if (file_exists($fn_src)) {
@@ -260,7 +264,7 @@ if (0) {
     if (file_exists(chkPath($cfg->get('stats_logs')) . "bad/GAMEMOD/" . $ip_s)) {
         
     } else {
-        mkdir(chkPath($cfg->get('stats_logs')) . "bad/GAMEMOD/" . $ip_s, 0777, true);
+        mkdir(chkPath($cfg->get('stats_logs')) . "bad/GAMEMOD/" . $ip_s, 0777);
     }
     $fn_dest = chkPath($cfg->get('stats_logs')) . "bad/GAMEMOD/" . $ip_s . "/" . $stats_filename;
     if (file_exists($fn_src)) {
@@ -963,6 +967,7 @@ if ($data['pc'] >= $cfg->get('stats_players_min') && $globals['roundtime'] >= $c
                         $query3w .= " `waccu-$w`='" . (($data2["wbh-" . $w] + $data["wbh-" . $w . "_" . $x]) / chz($data2["wbf-" . $w] + $data["wbf-" . $w . "_" . $x])) . "',";
                     }
                 }
+				//error_log($query3w, 3, "myerror.log");
                 //echo "======".$query3w."=======";
                 //--------------------------------------------------------------------------------------------------------------------
                 $e_array = array("kdths", "kkls", "ktt");
@@ -975,7 +980,8 @@ if ($data['pc'] >= $cfg->get('stats_players_min') && $globals['roundtime'] >= $c
                 }
                 //--------------------------------------------------------------------------------------------------------------------
                 $v_array = array("vdths", "vkls", "vrkls", "vtp", "vbf", "vbh", "vdstry"); // "vaccu-",
-                for ($v = 0; $v < 15; $v++) {
+                //for ($v = 0; $v < 14; $v++) {
+				for ($v = 0; $v < 16; $v++) {  // edit : Steve
                     foreach ($v_array as $v_temp) {
                         if (isset($data[$v_temp . "-" . $v . "_" . $x]) AND $data[$v_temp . "-" . $v . "_" . $x] != 0) {
                             $query3v .= " `$v_temp-$v`=(`$v_temp-$v` + " . $data[$v_temp . "-" . $v . "_" . $x] . "),";
@@ -993,6 +999,7 @@ if ($data['pc'] >= $cfg->get('stats_players_min') && $globals['roundtime'] >= $c
                         $query3v .= " `vkdr-$v`=0,";
                     }
                 }
+				//error_log($query3v, 3, "myerror.log");
                 //--------------------------------------------------------------------------------------------------------------------
                 //--------------------------------------------------------------------------------------------------------------------
                 //--------------------------------------------------------------------------------------------------------------------
@@ -1043,6 +1050,47 @@ fclose($fp);
                     $res = mysql_query($query);
                 }
 
+					// edit: Steve
+					// changed code as per below
+                    if ($query3w) { 
+						//stats_w
+                        $query = "SELECT * FROM `stats_w` WHERE pid='" . $data["pid_$x"] . "' LIMIT 1";
+                        $result = mysql_query($query);
+                        if (!mysql_num_rows($result)) {
+                            $query = "INSERT INTO stats_w SET " . rtrim($query3w, ",") . ", `pid`='" . $data["pid_$x"] . "'";
+                        } else {
+                            $query = "UPDATE stats_w SET " . rtrim($query3w, ",") . " WHERE `pid`='" . $data["pid_$x"] . "'";
+                        }
+                        $result = mysql_query($query);
+                   }
+
+                    if ($query3e) { 
+						//stats_e
+                        $query = "SELECT * FROM `stats_e` WHERE pid='" . $data["pid_$x"] . "' LIMIT 1";
+                        $result = mysql_query($query);
+                        if (!mysql_num_rows($result)) {
+                            $query = "INSERT INTO stats_e SET " . rtrim($query3e, ",") . ", `pid`='" . $data["pid_$x"] . "'";
+                        } else {
+                            $query = "UPDATE stats_e SET " . rtrim($query3e, ",") . " WHERE `pid`='" . $data["pid_$x"] . "'";
+                        }
+                        $result = mysql_query($query);
+                   }
+
+                    if ($query3v) { 
+						//stats_v
+                        $query = "SELECT * FROM `stats_v` WHERE pid='" . $data["pid_$x"] . "' LIMIT 1";
+                        $result = mysql_query($query);
+                        if (!mysql_num_rows($result)) {
+                            $query = "INSERT INTO stats_v SET " . rtrim($query3v, ",") . ", `pid`='" . $data["pid_$x"] . "'";
+                        } else {
+                            $query = "UPDATE stats_v SET " . rtrim($query3v, ",") . " WHERE `pid`='" . $data["pid_$x"] . "'";
+                        }
+                        $result = mysql_query($query);
+                   }
+
+
+				// remove redundant foreach loop: Steve
+/*
                 $table_array = array("w", "e", "v");
                 foreach ($table_array as $word_) {
                     $query3 = "query3" . $word_;
@@ -1067,6 +1115,8 @@ fclose($fp);
                         ErrorLog(">>>>>>>>>>" . $$query3 . "", 3);
                     }
                 }
+*/
+
 
                 //Update Playerprogress                
                 $query = "SELECT * FROM playerprogress WHERE pid = '" . $data["pid_$x"] . "'";
@@ -1390,8 +1440,9 @@ fclose($fp);
      * ****************************** */
     if ($cfg->get('stats_move_logs')) {
         if (file_exists(chkPath($cfg->get('stats_logs_store')) . $ip_s)) {
+            
         } else {
-            mkdir(chkPath($cfg->get('stats_logs_store')) . $ip_s, 0777, true);
+            mkdir(chkPath($cfg->get('stats_logs_store')) . $ip_s, 0777);
         }
 
         $fn_src = chkPath($cfg->get('stats_logs')) . $stats_filename;
